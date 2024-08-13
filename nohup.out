@@ -1,0 +1,298 @@
+Watching for file changes with StatReloader
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:57:49] "GET / HTTP/1.1" 400 66037
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:58:56] "GET / HTTP/1.1" 400 65382
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:58:59] "GET / HTTP/1.1" 400 66472
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:59:08] "GET / HTTP/1.1" 400 66334
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:59:20] "GET / HTTP/1.1" 400 66472
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:59:30] "GET / HTTP/1.1" 400 66334
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:59:35] "GET / HTTP/1.1" 400 65833
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 22:59:55] "GET / HTTP/1.1" 400 65800
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:00] "GET / HTTP/1.1" 400 67068
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:05] "GET / HTTP/1.1" 400 65833
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:28] "GET / HTTP/1.1" 400 66470
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:29] "GET / HTTP/1.1" 400 66688
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:35] "GET / HTTP/1.1" 400 66688
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:00:52] "GET / HTTP/1.1" 400 65386
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:29:24] "GET / HTTP/1.1" 400 65239
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:29:27] "GET / HTTP/1.1" 400 65243
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:29:28] "GET / HTTP/1.1" 400 65243
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:29:29] "GET / HTTP/1.1" 400 65239
+Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'api.czebravisualdata.online'. You may need to add 'api.czebravisualdata.online' to ALLOWED_HOSTS.
+Bad Request: /
+[12/Aug/2024 23:43:13] "GET / HTTP/1.1" 400 65022
+/home/czebravisualdata-api/htdocs/CzebraVisual/czebra/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+August 12, 2024 - 22:53:36
+Django version 5.1, using settings 'czebra.settings'
+Starting development server at http://0.0.0.0:8100/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/management/commands/runserver.py", line 126, in inner_run
+    autoreload.raise_last_exception()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/autoreload.py", line 87, in raise_last_exception
+    raise _exception[1]
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/core/management/__init__.py", line 394, in execute
+    autoreload.check_errors(django.setup)()
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/home/czebravisualdata-api/htdocs/CzebraVisual/venv/lib/python3.10/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1004, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'corsheaders'
+/home/czebravisualdata-api/htdocs/CzebraVisual/czebra/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Error: That port is already in use.
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/home/czebravisualdata-api/htdocs/CzebraVisual/static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[12/Aug/2024 17:56:43] "GET /api/users/ HTTP/1.1" 200 5580
+[12/Aug/2024 17:56:51] "GET /api/users/ HTTP/1.1" 200 5580
