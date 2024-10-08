@@ -1,0 +1,19 @@
+/* App.css */
+
+@media (max-width: 767px) {
+    .mobile-only {
+        display: inline !important;
+    }
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none !important;
+    }
+    .desktop-only {
+        display: inline !important;
+    }
+}
