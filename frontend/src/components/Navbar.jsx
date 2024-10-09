@@ -4,7 +4,7 @@ import { NavLinkWrapper, NavbarWrapper, StyledNavLink, HamburgerMenu, NavMenu } 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Dropdown, Button } from 'antd';
+import { Dropdown, Button, Menu } from 'antd';
 import { logout as performLogout, apiClient } from '../ApiClient';
 import { API_URL_DIVISIONS, API_URL_DIVISION_USERS } from './pages/Config';
 
@@ -44,76 +44,23 @@ export const Navbar = ({ userRole, userName, setToken, setUserRole, setUserName 
   }, []);
 
   useEffect(() => {
-    // Update division name and links based on the user division
-    if (userDivision && divisions.length > 0) {
-      const division = divisions.find(d => d.division_id === userDivision);
-      if (division) {
-        setDivisionName(division.name);
-        switch (division.division_id) {
-          case 1:
-            setLinks([{ page: "Home", href: "/home" }]);
-            break;
-          case 2:
-            setLinks([{ page: "Requests", href: "/requests" }]);
-            break;
-          default:
-            setLinks([
-              { page: "Home", href: "/home" },
-              { page: "Requests", href: "/requests" }
-            ]);
-            break;
-        }
-      }
-    } else {
-      // Default to showing all links if no specific division is found
-      setLinks([
-        { page: "Home", href: "/home" },
-        { page: "Requests", href: "/requests" }
-      ]);
-    }
+    setLinks([
+      { page: "Home", href: "/home" },
+      { page: "Requests", href: "/requests" }
+    ]);
   }, [userDivision, divisions]);
-
-  useEffect(() => {
-    // Redirect if user tries to access a page not allowed by their division
-    if (userDivision && divisions.length > 0) {
-      const division = divisions.find(d => d.division_id === userDivision);
-      if (division) {
-        const notAllowedPaths = {
-          1: ["/home"] // Home
-
-        };
-        if (notAllowedPaths[division.division_id].includes(location.pathname)) {
-          navigate('/home');
-        }
-      }
-    }
-  }, [location.pathname, userDivision, divisions, navigate]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-
   };
 
   const handleLogout = () => {
     performLogout();
-    localStorage.clear(); // Esto eliminará todas las claves de almacenamiento local
+    localStorage.clear();
     setToken(null);
     setUserRole(null);
     setUserName(null);
     navigate('/login');
-  };
-
-  const handleMenuClick = ({ key }) => {
-    if (key === 'logout') {
-      handleLogout();
-    } else if (key === 'manage_users') {
-      navigate('/user');
-    }
-    setIsMenuOpen(false);
-  };
-
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
   };
 
   const menuItems = [
@@ -131,9 +78,13 @@ export const Navbar = ({ userRole, userName, setToken, setUserRole, setUserName 
       ),
     },
     { type: 'divider' },
-    userRole === 'Admin' && userDivision === null && {
-      key: 'manage_users',
-      label: 'Manage Users',
+    {
+      key: 'profile',
+      label: (
+        <div onClick={() => navigate('/profile')}>
+          Show Profile
+        </div>
+      ),
     },
     {
       key: 'logout',
@@ -143,7 +94,7 @@ export const Navbar = ({ userRole, userName, setToken, setUserRole, setUserName 
         </div>
       ),
     },
-  ].filter(Boolean);  // Filtrar elementos nulos o falsos
+  ];
 
   return (
     <NavbarWrapper>
@@ -153,14 +104,14 @@ export const Navbar = ({ userRole, userName, setToken, setUserRole, setUserName 
       <HamburgerMenu onClick={toggleMenu}>
         <FontAwesomeIcon icon={faBars} size="lg" />
       </HamburgerMenu>
-      <NavMenu isopen={isMenuOpen ? 'true' : undefined}>
+      <NavMenu isOpen={isMenuOpen}>
         <NavLinkWrapper>
           {links.map((link) => (
-            <StyledNavLink activeclassname="active" key={link.page} to={link.href} onClick={handleLinkClick}>
+            <StyledNavLink activeclassname="active" key={link.page} to={link.href} onClick={() => setIsMenuOpen(false)}>
               {link.page}
             </StyledNavLink>
           ))}
-          <Dropdown menu={{ items: menuItems }} trigger={['click']}>
+          <Dropdown overlay={<Menu items={menuItems} />} trigger={['click']}>
             <Button
               type="link"
               style={{
