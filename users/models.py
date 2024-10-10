@@ -1,13 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils.crypto import get_random_string
+import uuid
+from requests.models import Company
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
+        
+        if not extra_fields.get('code'):
+            extra_fields['code'] = get_random_string(8)
+        
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        user.set_password(password)  # Se usa set_password para almacenar el hash de la contraseña
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
@@ -29,14 +36,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
 
     user_id = models.AutoField(primary_key=True)
-    code = models.CharField(max_length=20, unique=True, null=False)
+    code = models.CharField(max_length=20, unique=True, null=False, blank=True)
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True, null=False)
     role = models.CharField(max_length=50, null=True, blank=True)
+    company = models.ForeignKey(
+        Company, 
+        null=True, 
+        blank=True, 
+        on_delete=models.SET_NULL,
+        related_name='employees'
+    )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
-    is_staff = models.BooleanField(default=False)  # Necesario para la administración de Django
+    is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -46,8 +60,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    def save(self, *args, **kwargs):
+        # Guardar primero para generar el user_id si es un nuevo usuario
+        if not self.pk:
+            super().save(*args, **kwargs)
+
+        # Generar el código si no existe o si la empresa cambia
+        user_id_str = str(self.user_id).zfill(4)
+        company_code = self.company.abbreviation if self.company and self.company.abbreviation else ""
+        new_code = f"U-{company_code.upper()}-{user_id_str}" if company_code else f"U-{user_id_str}"
+
+        if self.code != new_code:
+            self.code = new_code
+            # Guardar de nuevo para actualizar el código
+            super().save(update_fields=['code'])
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
 class Notification(models.Model):
     notification_id = models.AutoField(primary_key=True)
@@ -58,3 +88,28 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"Notification for {self.user.first_name} {self.user.last_name}"
+
+class Division(models.Model):
+    division_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, unique=True)
+    manager_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_divisions')
+
+    class Meta:
+        db_table = 'use_Division'
+
+    def __str__(self):
+        return self.name
+
+class DivisionUser(models.Model):
+    division_user_id = models.AutoField(primary_key=True)
+    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    assigned_date = models.DateField(auto_now_add=True)
+    removed_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'use_DivisionUser'
+        unique_together = (('division', 'user'),)
+
+    def __str__(self):
+        return f"{self.division.name} - {self.user.email}"

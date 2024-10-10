@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings  # Para referenciar el modelo de usuarios
+from django.conf import settings
 
 class Company(models.Model):
     STATUS_CHOICES = [
@@ -8,7 +8,7 @@ class Company(models.Model):
     ]
 
     company_id = models.AutoField(primary_key=True)
-    code = models.CharField(max_length=20, unique=True, null=False)
+    code = models.CharField(max_length=20, unique=True, null=False, blank=True)  # No usar default aquí
     name = models.CharField(max_length=255, null=False)
     phone = models.CharField(max_length=20, null=True, blank=True)
     abbreviation = models.CharField(max_length=10, null=True, blank=True)
@@ -21,7 +21,12 @@ class Company(models.Model):
     state = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     postal_code = models.CharField(max_length=20, null=True, blank=True)
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='owned_companies')
+
+    def save(self, *args, **kwargs):
+        if not self.code:  # Solo generar si no tiene un código
+            self.code = f"{self.abbreviation.upper()}-001" if self.abbreviation else "NOABBR-001"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -43,8 +48,21 @@ class Request(models.Model):
 
     request_id = models.AutoField(primary_key=True)
     code = models.CharField(max_length=20, unique=True, null=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    company = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
+    
+    # Campo para el usuario que realiza la solicitud
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    
+    # Campo para la empresa asociada a la solicitud
+    company = models.ForeignKey(
+        Company,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    
     request_date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, null=False)
     name = models.CharField(max_length=255, null=True, blank=True)
@@ -52,7 +70,7 @@ class Request(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     details = models.TextField(null=True, blank=True)
     desired_delivery_date = models.DateField(null=True, blank=True)
-    files = models.JSONField(null=True, blank=True)  # Assuming files are stored as JSON array of file paths/URLs
+    files = models.JSONField(null=True, blank=True)  # Asumiendo archivos como URLs o rutas en JSON
     is_urgent = models.BooleanField(default=False)
 
     def __str__(self):
