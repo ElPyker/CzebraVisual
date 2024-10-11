@@ -136,12 +136,14 @@ export const Profile = () => {
             if (!token || !userId) {
                 throw new Error('No access token or user ID found');
             }
-
+    
             const response = await apiClient.get(`${API_URL_USERS}${userId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+            
+            console.log('Response data:', response.data);  // Verifica los datos que devuelve la API
             setUser(response.data);
         } catch (error) {
             setError(error.message);
@@ -149,6 +151,7 @@ export const Profile = () => {
             setLoading(false);
         }
     };
+    
 
     useEffect(() => {
         fetchUserData();

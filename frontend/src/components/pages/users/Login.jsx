@@ -15,8 +15,7 @@ const Login = ({ setToken, setUserRole, setUserName }) => {
   const getUserInfo = async (email) => {
     try {
       const response = await apiClient.get(API_URL_USERS);
-      const currentUser = response.data.find(user => user.email === email);
-      return currentUser;
+      return response.data.find(user => user.email === email);
     } catch (error) {
       console.error('Error fetching user info:', error);
       throw error;
@@ -36,31 +35,27 @@ const Login = ({ setToken, setUserRole, setUserName }) => {
 
   const onFinish = async (values) => {
     try {
-      console.log('Starting login process...');
       const response = await login(values.email, values.password);
-      console.log('Login response:', response);
       
       if (response.access) {
         const userInfo = await getUserInfo(values.email);
-        console.log('User info:', userInfo);
-  
         if (userInfo) {
           const userDivision = await getDivisionForUser(userInfo.user_id);
-          console.log('User division:', userDivision);
-  
+
           if (userInfo.role === 'Client') {
-            message.error('Rol de usuario no Permitido.');
+            message.error('Rol de usuario no permitido.');
             navigate('/login');
-          } else if (userInfo.role === 'Admin' || userInfo.role === 'User') {
+          } else {
             message.success('Inicio de sesión exitoso!');
+            
+            // Guardar en localStorage y actualizar estado
             localStorage.setItem('access_token', response.access);
             localStorage.setItem('user_role', userInfo.role);
             localStorage.setItem('user_name', `${userInfo.first_name} ${userInfo.last_name}`);
             localStorage.setItem('user_id', userInfo.user_id);
             localStorage.setItem('user_division', userDivision || 'General');
-  
-            if (typeof setToken === 'function' && typeof setUserRole === 'function' && typeof setUserName === 'function') {
-              console.log('Updating state with user info...');
+            
+            if (setToken && setUserRole && setUserName) {
               setToken(response.access);
               setUserRole(userInfo.role);
               setUserName(`${userInfo.first_name} ${userInfo.last_name}`);
@@ -81,10 +76,8 @@ const Login = ({ setToken, setUserRole, setUserName }) => {
       message.error('Error en el inicio de sesión. Por favor, intenta nuevamente más tarde.');
     }
   };
-  
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
     message.error('Error en el inicio de sesión. Por favor, revisa tus credenciales.');
   };
 
