@@ -9,24 +9,52 @@ import {
   Select,
   DatePicker,
   message,
-  Tooltip,
   Upload,
   Switch,
+  Tag
 } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
   UploadOutlined,
-  EyeOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { API_URL_REQUESTS } from "../Config";
 import NavBarMenu from "./NavBarMenu";
 import { apiClient } from "../../../ApiClient";
+import styled from "styled-components";
 import moment from "moment";
 
 const { Option } = Select;
-
 const buttonColor = "#97b25e";
+
+const ResponsiveTable = styled(Table)`
+  .ant-table {
+    @media (max-width: 768px) {
+      .ant-table-thead > tr > th,
+      .ant-table-tbody > tr > td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+`;
+
+const requestTypeMap = {
+  DG: "Diseño Gráfico",
+  B: "Branding",
+  PV: "Video Promocional",
+  DC: "Campañas Digitales",
+  WD: "Diseño y Desarrollo Web",
+};
+
+
+const ImagePreviewModal = styled(Modal)`
+  .ant-modal-content {
+    z-index: 1500 !important;
+  }
+`;
 
 const RequestPage = () => {
   const [requests, setRequests] = useState([]);
@@ -37,23 +65,17 @@ const RequestPage = () => {
   const [form] = Form.useForm();
   const [currentRequest, setCurrentRequest] = useState(null);
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewFile, setPreviewFile] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [currentRequestId, setCurrentRequestId] = useState(null);
-  const [countdown, setCountdown] = useState(3);
-  const [deleteEnabled, setDeleteEnabled] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [fileList, setFileList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [fileList, setFileList] = useState([]);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [countdown, setCountdown] = useState(3);
+  const [deleteEnabled, setDeleteEnabled] = useState(false);
 
   useEffect(() => {
     fetchRequests();
   }, []);
-
-  useEffect(() => {
-    handleSearchChange(searchText);
-  }, [searchText, requests]);
 
   useEffect(() => {
     if (isDeleteModalVisible) {
@@ -98,20 +120,16 @@ const RequestPage = () => {
       });
 
       setFileList(
-        (request.files || []).map((file, index) => {
-          const fileUrl = file.url || file; // Si el archivo ya tiene un url
-          const fileType = fileUrl.endsWith(".mp4")
-            ? "video/mp4"
-            : "image/jpeg";
-          const fileName = fileUrl.split("/").pop();
-          return {
-            uid: index,
-            name: fileName || `file-${index}`,
-            status: "done",
-            url: fileUrl,
-            type: fileType,
-          };
-        })
+        request.file
+          ? [
+              {
+                uid: request.file,
+                name: request.file.split("/").pop(),
+                status: "done",
+                url: request.file,
+              },
+            ]
+          : []
       );
     } else {
       form.resetFields();
@@ -124,57 +142,54 @@ const RequestPage = () => {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      const data = {
-        user: values.user,
-        company: values.company,
-        title: values.title,
-        name: values.name,
-        request_type: values.request_type,
-        status: values.status,
-        details: values.details,
-        desired_delivery_date: values.desired_delivery_date
+      const formData = new FormData();
+  
+      formData.append("title", values.title);
+      formData.append("name", values.name || "");
+      formData.append("request_type", values.request_type);
+      formData.append("status", values.status);
+      formData.append("details", values.details || "");
+      formData.append(
+        "desired_delivery_date",
+        values.desired_delivery_date
           ? values.desired_delivery_date.format("YYYY-MM-DD")
-          : null,
-        is_urgent: values.is_urgent,
-        files: fileList.map((file) => file.originFileObj || file.url),
-      };
-
+          : ""
+      );
+      formData.append("is_urgent", values.is_urgent);
+  
+      if (fileList.length > 0 && fileList[0].originFileObj) {
+        formData.append("file", fileList[0].originFileObj);
+      }
+  
+      // Realiza la solicitud POST para agregar o PUT para editar
       if (editMode) {
         await apiClient.put(
           `${API_URL_REQUESTS}${currentRequest.request_id}/`,
-          data
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
         );
-        message.success("Request updated successfully");
       } else {
-        await apiClient.post(API_URL_REQUESTS, data);
-        message.success("Request added successfully");
+        await apiClient.post(API_URL_REQUESTS, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
       }
+  
+      message.success("Request saved successfully");
       fetchRequests();
       setIsModalVisible(false);
     } catch (error) {
       console.error("Error saving request:", error);
-      if (error.response && error.response.data) {
-        console.error("Server response:", error.response.data);
-      }
       message.error("Error saving request");
     }
   };
-
-  const handlePreview = (file) => {
-    setPreviewFile(file);
-    setPreviewVisible(true);
-  };
-
-  const showDeleteModal = (requestId) => {
-    setCurrentRequestId(requestId);
-    setIsDeleteModalVisible(true);
-  };
+  
+  
 
   const handleDelete = async () => {
     try {
-      await apiClient.delete(`${API_URL_REQUESTS}${currentRequestId}/`);
-      fetchRequests();
+      await apiClient.delete(`${API_URL_REQUESTS}${currentRequest.request_id}/`);
       message.success("Request deleted successfully");
+      fetchRequests();
     } catch (error) {
       console.error("Error deleting request:", error);
       message.error("Error deleting request");
@@ -183,24 +198,19 @@ const RequestPage = () => {
     }
   };
 
-  const handleSearchChange = (searchText) => {
-    setSearchText(searchText);
-    const filtered = requests.filter(
-      (request) =>
-        (request.title &&
-          request.title.toLowerCase().includes(searchText.toLowerCase())) ||
-        (request.code &&
-          request.code.toLowerCase().includes(searchText.toLowerCase())) ||
-        (request.name &&
-          request.name.toLowerCase().includes(searchText.toLowerCase())) ||
-        (request.request_type &&
-          request.request_type
-            .toLowerCase()
-            .includes(searchText.toLowerCase())) ||
-        (request.status &&
-          request.status.toLowerCase().includes(searchText.toLowerCase()))
-    );
-    setFilteredRequests(filtered);
+  const showDeleteModal = (request) => {
+    setCurrentRequest(request);
+    setIsDeleteModalVisible(true);
+  };
+  
+
+  const handleFileChange = ({ fileList }) => {
+    setFileList([fileList[fileList.length - 1]]);
+  };
+
+  const handlePreview = (file) => {
+    setPreviewImage(file.url || file.thumbUrl);
+    setPreviewVisible(true);
   };
 
   const columns = [
@@ -212,44 +222,63 @@ const RequestPage = () => {
     { title: "Title", dataIndex: "title", key: "title" },
     { title: "Code", dataIndex: "code", key: "code" },
     { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Request Type", dataIndex: "request_type", key: "request_type" },
-    { title: "Status", dataIndex: "status", key: "status" },
     {
-      title: "Desired Delivery Date",
-      dataIndex: "desired_delivery_date",
-      key: "desired_delivery_date",
+      title: "Request Type",
+      dataIndex: "request_type",
+      key: "request_type",
+      render: (requestType) => (
+        <Tag color="blue">
+          {requestTypeMap[requestType] || requestType}
+        </Tag>
+      ),
     },
     {
-      title: "Is Urgent?",
-      dataIndex: "is_urgent",
-      key: "is_urgent",
-      render: (is_urgent) => (is_urgent ? "Yes" : "No"),
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <Tag color={status === "active" ? "green" : "red"}>
+          {status.charAt(0).toUpperCase() + status.slice(1)}
+        </Tag>
+      ),
+    },
+    {
+      title: "File",
+      dataIndex: "file",
+      key: "file",
+      render: (file) =>
+        file && (
+          <img
+            src={file}
+            alt="Preview"
+            style={{ width: 50, cursor: "pointer" }}
+            onClick={() => handlePreview({ url: file })}
+          />
+        ),
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Tooltip title="Edit">
-            <Button
-              onClick={() => showModal(record)}
-              type="link"
-              icon={<EditOutlined />}
-              style={{ color: buttonColor }}
-            />
-          </Tooltip>
-          <Tooltip title="Remove">
-            <Button
-              onClick={() => showDeleteModal(record.request_id)}
-              type="link"
-              icon={<DeleteOutlined />}
-              danger
-            />
-          </Tooltip>
+          <Button
+            onClick={() => showModal(record)}
+            type="link"
+            icon={<EditOutlined />}
+            style={{ color: buttonColor }}
+          />
+          <Button
+            onClick={() => showDeleteModal(record)}
+            type="link"
+            icon={<DeleteOutlined />}
+            danger
+          />
         </Space>
       ),
     },
   ];
+  
+  
 
   return (
     <div>
@@ -261,12 +290,19 @@ const RequestPage = () => {
       >
         Add Request
       </Button>
-      <Table
+      <ResponsiveTable
         columns={columns}
         dataSource={filteredRequests}
         rowKey="request_id"
         loading={loading}
-        pagination={{ pageSize: 10 }}
+        pagination={{
+          current: currentPage,
+          pageSize: pageSize,
+          onChange: (page, pageSize) => {
+            setCurrentPage(page);
+            setPageSize(pageSize);
+          },
+        }}
       />
       <Modal
         title={editMode ? "Edit Request" : "Add Request"}
@@ -297,7 +333,6 @@ const RequestPage = () => {
               <Option value="WD">Diseño y Desarrollo Web</Option>
             </Select>
           </Form.Item>
-
           <Form.Item name="status" label="Status" rules={[{ required: true }]}>
             <Select>
               <Option value="active">Active</Option>
@@ -317,32 +352,44 @@ const RequestPage = () => {
           <Form.Item name="details" label="Details">
             <Input.TextArea rows={4} />
           </Form.Item>
-          <Form.Item name="files" label="File">
+          <Form.Item name="file" label="File">
             <Upload
+              listType="picture"
               fileList={fileList}
+              onChange={handleFileChange}
               onPreview={handlePreview}
-              onChange={({ fileList }) =>
-                setFileList([fileList[fileList.length - 1]])
-              } // Mantener solo el último archivo seleccionado
               beforeUpload={() => false}
+              accept="image/*,video/*"
             >
               <Button icon={<UploadOutlined />}>Upload File</Button>
             </Upload>
           </Form.Item>
         </Form>
       </Modal>
-
-      <Modal
-        open={previewVisible}
+      <ImagePreviewModal
+        title="File Preview"
+        visible={previewVisible}
         footer={null}
         onCancel={() => setPreviewVisible(false)}
       >
-        {previewFile?.type.startsWith("image/") && (
-          <img alt="preview" style={{ width: "100%" }} src={previewFile.url} />
+        {previewImage && previewImage.endsWith(".mp4") ? (
+          <video controls style={{ width: "100%" }} src={previewImage} />
+        ) : (
+          <img alt="Preview" style={{ width: "100%" }} src={previewImage} />
         )}
-        {previewFile?.type.startsWith("video/") && (
-          <video controls style={{ width: "100%" }} src={previewFile.url} />
-        )}
+      </ImagePreviewModal>
+      <Modal
+        title="Confirm Deletion"
+        visible={isDeleteModalVisible}
+        onOk={handleDelete}
+        onCancel={() => setIsDeleteModalVisible(false)}
+        okText={`Delete${countdown > 0 ? ` (${countdown})` : ""}`}
+        okButtonProps={{
+          disabled: !deleteEnabled,
+          style: { backgroundColor: deleteEnabled ? "red" : "white" },
+        }}
+      >
+        <p>Are you sure you want to delete this request? Please wait {countdown} seconds to confirm deletion.</p>
       </Modal>
     </div>
   );
