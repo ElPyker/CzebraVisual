@@ -34,11 +34,11 @@ class Company(models.Model):
 
 class Request(models.Model):
     REQUEST_TYPE_CHOICES = [
-        ('Graphic Design', 'Graphic Design'),
-        ('Branding', 'Branding'),
-        ('Promotional Video', 'Promotional Video'),
-        ('Digital Campaigns', 'Digital Campaigns'),
-        ('Web Design and Development', 'Web Design and Development'),
+        ('DG', 'Graphic Design'),
+        ('B', 'Branding'),
+        ('PV', 'Promotional Video'),
+        ('DC', 'Digital Campaigns'),
+        ('WD', 'Web Design and Development'),
     ]
 
     STATUS_CHOICES = [
@@ -47,22 +47,17 @@ class Request(models.Model):
     ]
 
     request_id = models.AutoField(primary_key=True)
-    code = models.CharField(max_length=20, unique=True, null=False)
-    
-    # Campo para el usuario que realiza la solicitud
+    code = models.CharField(max_length=20, unique=True, null=False, blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
         on_delete=models.SET_NULL
     )
-    
-    # Campo para la empresa asociada a la solicitud
     company = models.ForeignKey(
-        Company,
+        'Company',
         null=True,
         on_delete=models.SET_NULL
     )
-    
     request_date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, null=False)
     name = models.CharField(max_length=255, null=True, blank=True)
@@ -70,8 +65,20 @@ class Request(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     details = models.TextField(null=True, blank=True)
     desired_delivery_date = models.DateField(null=True, blank=True)
-    files = models.JSONField(null=True, blank=True)  # Asumiendo archivos como URLs o rutas en JSON
+    file = models.FileField(upload_to='requests/', null=True, blank=True)
+    file_type = models.CharField(max_length=10, choices=[('image', 'Image'), ('video', 'Video')], null=True, blank=True)
     is_urgent = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            request_type_abbr = dict(self.REQUEST_TYPE_CHOICES).get(self.request_type)
+            request_id_formatted = str(self.request_id).zfill(4)
+            if self.company and self.company.abbreviation:
+                company_abbr = self.company.abbreviation.upper()
+                self.code = f"{request_type_abbr}-{company_abbr}-{request_id_formatted}"
+            else:
+                self.code = f"{request_type_abbr}-{request_id_formatted}"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

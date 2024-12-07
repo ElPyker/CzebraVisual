@@ -60,20 +60,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    def save(self, *args, **kwargs):
-        # Guardar primero para generar el user_id si es un nuevo usuario
-        if not self.pk:
-            super().save(*args, **kwargs)
+def save(self, *args, **kwargs):
+    # Verifica si el código necesita ser actualizado
+    should_update_code = False
+    if not self.pk:
+        # Usuario nuevo, necesita código
+        super().save(*args, **kwargs)  # Guarda para generar user_id
+        should_update_code = True
+    else:
+        # Verifica si ha cambiado la empresa
+        original_user = User.objects.filter(pk=self.pk).first()
+        if original_user and original_user.company != self.company:
+            should_update_code = True
 
-        # Generar el código si no existe o si la empresa cambia
+    if should_update_code:
+        # Actualiza el código si es necesario
         user_id_str = str(self.user_id).zfill(4)
         company_code = self.company.abbreviation if self.company and self.company.abbreviation else ""
-        new_code = f"U-{company_code.upper()}-{user_id_str}" if company_code else f"U-{user_id_str}"
+        self.code = f"U-{company_code.upper()}-{user_id_str}" if company_code else f"U-{user_id_str}"
 
-        if self.code != new_code:
-            self.code = new_code
-            # Guardar de nuevo para actualizar el código
-            super().save(update_fields=['code'])
+    # Llamar a save() nuevamente si hay cambios en el código
+    super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
